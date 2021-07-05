@@ -1,0 +1,21 @@
+{
+  "name": "dux",
+  "version": "1.0.0",
+  "description": "Dux é uma inteligência virtual criado para dar assistência na área de cobranças da Supernova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "index.js",
+  "author": "Ludra Luan Andrade",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2",
+    "venom-bot": "^3.0.19"
+  }
+}

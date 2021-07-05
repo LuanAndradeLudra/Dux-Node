@@ -1,0 +1,75 @@
+<%- include("partials/header"); %>
+  <!-- page content -->
+
+  <div class="right_col" role="main">
+
+
+    <% if(query.msg !=undefined){ %>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <% if (query.msg !=null && query.msg==1) { %>
+            <div class="alert alert-success alert-dismissible " role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                  aria-hidden="true">×</span>
+              </button>
+              <strong>Usuário cadastrado com sucesso!
+            </div>
+            <% } %>
+              <% if (query.msg !=null && query.msg==2) { %>
+                <div class="alert alert-danger alert-dismissible " role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                      aria-hidden="true">×</span>
+                  </button>
+                  <strong>Cadastro cancelado!
+                </div>
+                <% } %>
+                  <% if (query.msg !=null && query.msg==3) { %>
+                    <div class="alert alert-warning alert-dismissible " role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                          aria-hidden="true">×</span>
+                      </button>
+                      <strong>Usuário deletado com sucesso!
+                    </div>
+                    <% } %>
+                      <% if (query.msg !=null && query.msg==4) { %>
+                        <div class="alert alert-success alert-dismissible " role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                              aria-hidden="true">×</span>
+                          </button>
+                          <strong>Usuário alterado com sucesso!
+                        </div>
+                        <% } %>
+                        <% if (query.msg !=null && query.msg==5) { %>
+                          <div class="alert alert-danger alert-dismissible " role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span>
+                            </button>
+                            <strong>A data de vencimento não pode ser no dia 31
+                          </div>
+                          <% } %>
+        </div>
+      </div>
+      <% } %>
+        <!-- top tiles -->
+        <div class="tile_count">
+          <div class="col-md-4 col-sm-4 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> Clientes</span>
+            <div class="count"><%= cli %></div>
+            <span class="count_bottom">Esse é o seu total de clientes na plataforma</span>
+          </div>
+          <div class="col-md-4 col-sm-4  tile_stats_count">
+            <span class="count_top"><i class="fa fa-clock-o"></i> Indadiplentes</span>
+            <div class="count"><%= ina %></div>
+            <span class="count_bottom">Esse é o total de clientes Indadiplentes</span>
+          </div>
+          <div class="col-md-4 col-sm-4  tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i>Próximos vencimentos</span>
+            <div class="count"><%= dues %></div>
+            <span class="count_bottom">Total de faturas próximas ao vencimento</span>
+          </div>
+        </div>
+        <!-- /top tiles -->
+  </div>
+  <!-- /page content -->
+
+  <%- include("partials/footer"); %>

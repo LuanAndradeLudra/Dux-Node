@@ -1,0 +1,8 @@
+1 = usuário criado
+2 = usuário cancelado
+3 = usuário não foi criado, erro na comunicação com banco de dados
+4 = usuário alterado
+5 = dia 31
+6 = Login realizado
+7 = Senha inválida
+8 = Logout realizado

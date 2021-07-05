@@ -1,0 +1,279 @@
+<%- include("partials/header") %>
+  <% function reversePhoneReplace(str){ %>
+    <% let phone=str.replace("55", "" ); %>
+      <% return phone; %>
+        <% } %>
+          <% function reverseDateReplace(str){ %>
+            <% let month=str.substring(0, 2); %>
+              <% let day=str.substring(3, 5); %>
+                <% let year=str.substring(6, 10); %>
+                  <% let date=day + "/" + month + "/" + year; %>
+                    <% return date; %>
+                      <% } %>
+                        <!-- page content -->
+                        <div class="right_col" role="main">
+                          <div class="">
+                            <div class="page-title">
+                              <div class="title_left">
+                                <h3>Editar cliente</h3>
+                              </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="row">
+                              <!-- form input mask -->
+                              <div class="col-md-12 col-sm-12  ">
+                                <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>Dados do cliente</h2>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+                                    <br />
+                                    <form class="form-horizontal form-label-left" method="POST"
+                                      action="/clientse/<%=cli.id%>">
+
+                                      <div class="form-group row">
+                                        <label for="first-name" class="control-label col-md-3 col-sm-3 col-xs-3">Nome
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="first-name" required="required" class="form-control"
+                                            name="name" placeholder="Seu nome" value="<%= cli.name %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="cpforcnpj" class="control-label col-md-3 col-sm-3 col-xs-3">CPF OU
+                                          CNPJ *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="cpforcnpj" required="required" class="form-control"
+                                            name="cpforcnpj" placeholder="Cpf ou Cnpj" value="<%= cli.cpf_or_cnpj %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-3">Email
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="email" id="email" required="required" class="form-control"
+                                            name="email" placeholder="email@email.com" value="<%= cli.email %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="phone" class="control-label col-md-3 col-sm-3 col-xs-3">Telefone
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="phone" required="required" class="form-control"
+                                            data-inputmask="'mask' : '(99) 99999-9999'" name="phone"
+                                            placeholder="(xx) xxxxx-xxxx" value="<%= reversePhoneReplace(cli.phone) %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="form-group row">
+                                        <label for="isZap" class="control-label col-md-3 col-sm-3 col-xs-3">Zap?
+                                          *</label>
+                                      <% if (cli.is_zap=="s" ) { %>
+                                        <div class="form-check form-check-inline mt-1">
+                                            <input class="form-check-input mt-1" type="radio" name="isZap"
+                                              id="inlineRadio1" value="s" checked>
+                                            <label class="form-check-label mt-1" for="inlineRadio1">Sim</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-1">
+                                          <input class="form-check-input mt-1" type="radio" name="isZap"
+                                            id="inlineRadio2" value="n">
+                                          <label class="form-check-label mt-1" for="inlineRadio2">Não</label>
+                                        </div>
+                                        <% } else { %>
+                                          <div class="form-check form-check-inline mt-1">
+                                            <input class="form-check-input mt-1" type="radio" name="isZap"
+                                              id="inlineRadio1" value="s">
+                                            <label class="form-check-label mt-1" for="inlineRadio1">Sim</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mt-1">
+                                          <input class="form-check-input mt-1" type="radio" name="isZap"
+                                            id="inlineRadio2" value="n" checked>
+                                          <label class="form-check-label mt-1" for="inlineRadio2">Não</label>
+                                        </div>
+                                          <% } %>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="dueDate" class="control-label col-md-3 col-sm-3 col-xs-3">Data de
+                                          vencimento da fatura (Dia e Mês)
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="dueDate" required="required" class="form-control"
+                                            name="due_date" maxlength="10" minlength="10"
+                                            data-inputmask="'mask' : '99/99/9999'" placeholder="01/02/2028" value="<%= reverseDateReplace(cli.due_date) %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="nascDate" class="control-label col-md-3 col-sm-3 col-xs-3">Data de
+                                          nascimento
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="nascDate" required="required" class="form-control"
+                                            name="nasc_date" maxlength="10" minlength="10"
+                                            data-inputmask="'mask' : '99/99/9999'" placeholder="02/03/2030" value="<%= cli.date_nasc %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="cep" class="control-label col-md-3 col-sm-3 col-xs-3">Cep *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="cep" required="required" class="form-control"
+                                            name="cep" placeholder="00000-000" data-inputmask="'mask' : '99999-999'"
+                                            maxlength="9" minlength="9" value="<%= cli.cep %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="address" class="control-label col-md-3 col-sm-3 col-xs-3">Endereço
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="address" required="required" class="form-control"
+                                            name="address" placeholder="Endereço" value="<%= cli.address %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="number" class="control-label col-md-3 col-sm-3 col-xs-3">Número
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="number" required="required" class="form-control"
+                                            name="number" placeholder="Número"value="<%= cli.number %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="complement"
+                                          class="control-label col-md-3 col-sm-3 col-xs-3">Complemento *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="complement" required="required" class="form-control"
+                                            name="complement" placeholder="Complemento" value="<%= cli.complement %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="district" class="control-label col-md-3 col-sm-3 col-xs-3">Bairro
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="district" required="required" class="form-control"
+                                            name="district" placeholder="Bairro" value="<%= cli.district %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="state" class="control-label col-md-3 col-sm-3 col-xs-3">Estado
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="state" required="required" class="form-control"
+                                            name="state" placeholder="Estado" value="<%= cli.state %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="city" class="control-label col-md-3 col-sm-3 col-xs-3">Cidade
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="city" required="required" class="form-control"
+                                            name="city" placeholder="Cidade" value="<%= cli.city %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="board" class="control-label col-md-3 col-sm-3 col-xs-3">Placa do
+                                          veículo *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="board" required="required" class="form-control"
+                                            name="board" placeholder="Placa do veículo" value="<%= cli.board %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="model" class="control-label col-md-3 col-sm-3 col-xs-3">Modelo
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="model" required="required" class="form-control"
+                                            name="model" placeholder="Modelo" value="<%= cli.model %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="chip" class="control-label col-md-3 col-sm-3 col-xs-3">Chip
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="chip" required="required" class="form-control"
+                                            name="chip" placeholder="Endereço" value="<%= cli.chip %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="mei" class="control-label col-md-3 col-sm-3 col-xs-3">Mei rastreador
+                                          *</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-9">
+                                          <input type="text" id="mei" required="required" class="form-control"
+                                            name="mei" placeholder="Mei rastreador" maxlength="15" value="<%= cli.mei %>">
+                                          <span class="fa fa-user form-control-feedback right"
+                                            aria-hidden="true"></span>
+                                        </div>
+                                      </div>
+
+                                      <div class="ln_solid"></div>
+
+                                      <div class="form-group row">
+                                        <div class="col-md-9 offset-md-3">
+                                          <a href="/?msg=2" class="btn btn-primary"> Cancelar </a>
+                                          <button type="submit" class="btn btn-success">Atualizar</button>
+                                        </div>
+                                      </div>
+
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /page content -->
+                        <%- include("partials/footer") %>
+                          <!-- Initialize datetimepicker -->
+                          <script type="text/javascript">
+
+                          </script>

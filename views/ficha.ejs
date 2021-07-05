@@ -1,0 +1,320 @@
+<% function reverseDateReplace(str){ %>
+<% let month=str.substring(0, 2); %>
+<% let day=str.substring(3, 5); %>
+<% let year=str.substring(6, 10); %>
+<% let date=day + "/" + month + "/" + year; %>
+<% return date; %>
+<% } %>
+<% function reversePhoneReplace(str){ %>
+<% let code=str.substring(0, 2); %>
+<% let ddd=str.substring(2, 4); %>
+<% let phone1=str.substring(4, 9); %>
+<% let phone2=str.substring(9, 13); %>
+<% let number=`(${ddd}) ${phone1}-${phone2}` %>
+<% return number; %>
+<% } %>
+<% function getMei(str, pos){ %>
+<% let mei = str.substring(pos, pos + 1) != undefined ? str.substring(pos, pos + 1) : "" %>
+<% return mei; %>
+<% } %>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ficha</title>
+
+  <!-- Bootstrap -->
+  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <style>
+    .ipt1 {
+      border-width: 0px 0px 1px 0px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <script>
+    function imprimir() {
+      document.getElementById('botaoImprimir').innerHTML = "";
+      print();
+      document.getElementById('botaoImprimir').innerHTML = ' <button class="btn btn-default" onclick="imprimir()"><i class="fa fa-print"></i>&nbsp;Imprimir</button>';
+    }
+  </script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <span id="botaoImprimir" class="float-sm-left">
+          <button class="btn btn-default" onclick="imprimir()"><i class="fa fa-print"></i>&nbsp;Imprimir</button>
+        </span>
+      </div>
+      <div class="col-3">
+        <img src="/images/logo.png" width="200">
+      </div>
+    </div>
+    <br />
+
+    <div class="col-12">
+      <center>CADASTRO DE CLIENTE E VEÍCULO</center>
+    </div>
+
+    <div class="input-group mb-4">
+      <div class="input-group-prepend">
+        <span class="mt-1">NOME COMPLETO:&nbsp;</span>
+      </div>
+      <!-- /btn-group -->
+      <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.name %>">
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">CPF OU CNPJ:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.cpf_or_cnpj %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">EMAIL:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.email %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">TELEFONE:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= reversePhoneReplace(cli.phone) %>">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1" style="margin-right: 20px;">ZAP:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <div class="form-check form-check-inline mt-1">
+            <% if(cli.is_zap == 's'){ %>
+            <input class="form-check-input mt-1" checked type="radio" name="inlineRadioOptions" id="inlineRadio1"
+              value="option1">
+            <% } else { %>
+              <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+              value="option1">
+            <% } %>
+            <label class="form-check-label mt-1" for="inlineRadio1">Sim</label>
+          </div>
+          <div class="form-check form-check-inline mt-1">
+            <% if(cli.is_zap == 'n'){ %>
+              <input class="form-check-input mt-1" checked type="radio" name="inlineRadioOptions" id="inlineRadio2"
+            value="option2">
+              <% } else { %>
+                <input class="form-check-input mt-1" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                  value="option2">
+              <% } %>
+            <label class="form-check-label mt-1" for="inlineRadio2">Não</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">DATA DE NASCIMENTO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.date_nasc %>">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">CEP:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.cep %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">ENDEREÇO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.address %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">NÚMERO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.number %>">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">COMPLEMENTO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.complement %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">BAIRRO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.district %>">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">ESTADO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.state %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">CIDADE:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.city %>">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">DIA VENCIMENTO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= reverseDateReplace(cli.due_date) %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">PLACA VEÍCULO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.board %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">MODELO:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.model %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="mt-1">CHIP:&nbsp;</span>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control ipt1" readonly style="background-color: white;" value="<%= cli.chip %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <span class="mt-1">MEI RASTREADOR:&nbsp;</span>
+    </div>
+    <div class="row mt-2">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 0) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 1) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 2) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 3) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 4) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 5) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 6) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 7) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 8) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 9) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 10) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 11) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 12) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 13) %>">
+      <input type="text" class="form-control" readonly style="background-color: white; width: 5%;" value="<%= getMei(cli.mei, 14) %>">
+    </div>
+  </div>
+  <div class="col-12" style="margin-top: 60px;">
+    <p align="justify"> <b>
+        Estou ciente que esse serviço de rastreamento é uma forma de inibir o furto de veículo e a empresa supernova
+        rastreadores
+        é responsável por instalação do rastreador e fornecimento de sinal GPRS de dados e como recebi o login e senha
+        do aplicativo
+        sou responsável pelo bloqueio e rastreamento do veículo e a empresa SUPERNOVA RASTREADORES NÃO É RESPONSÁVEL
+        PELO BLOQUEIO DO VEÍCULO,
+        tenho ciência do pagamento mensal do valor informado pela empresa, informo que estou ciente que o atraso de 45
+        dias o chip de monitoramento é cancelado,
+        para retorno do serviço, arcarei com o custo de 120,00 reais da troca do chip e nova habilitação do serviço.
+      </b></p>
+  </div>
+
+  <div class="col-12" style="margin-top: 60px;">
+    <input type="text" class="form-control ipt1" readonly style="background-color: white;">
+    <br />
+    <center> <b> Assinatura<br /> <br /> <br />
+      Visite o Site: www.supernovarastreadores.com.br </b> </center>
+  </div>
+</body>
+
+</html>
